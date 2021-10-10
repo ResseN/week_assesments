@@ -1,0 +1,37 @@
+#  1. Spin up VM.
+#  VM was deployed on AWS with white ip (3.123.228.217), open port 80 and Debian 11 OS.
+
+#  2. Install Nginx web server and git
+
+sudo apt update
+sudo apt upgrade
+sudo apt install -y nginx git
+systemctl start nginx
+systemctl enable nginx
+git --version
+git config --global user.name=Rurenko Yuriy
+git config --global user.email=rurenkou@gmail.com
+
+#  3. Fork GitHub repo https://github.com/joashp/material-design-template
+
+#  Create fork on repository https://github.com/joashp/material-design-template by clicking Fork button 
+#  Rename forked repository to short name https://github.com/ResseN/mdt.  (Screenshot1)
+
+#  Create 2 local repository. First for dev to make changes, second for prod to check changes
+
+mkdir /var/www/html/prod 
+mkdir /home/admin/dev
+cd /var/www/html/prod
+git clone https://github.com/ResseN/mdt
+cd /home/admin/dev
+git clone https://github.com/ResseN/mdt
+
+# Create nginx host
+
+cp /etc/nginx/sites-available/default /etc/nginx/sites-available/mdt
+sed -i 's//var/www/html//var/www/html/prod/mdt/www/g' /etc/nginx/sites-available/mdt
+ln -s /etc/nginx/sites-available/mdt /etc/nginx/sites-enabled/mdt
+nginx -t
+systemctl reload nginx
+
+#  Site is accessible from internet on link http://3.123.228.217
