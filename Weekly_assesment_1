@@ -109,6 +109,8 @@ systemctl daemon-reload
 systemctl start webhook
 systemctl ebable webhook
 
+# Create webhook from github repository. (Screenshot5)
+
 # Now we can make changes on dev repostiry and take push on github and automatically changes will pulled on prod repository  
 #  Second variant via external solutions, for example webhookd from https://github.com/ncarlier/webhookd
 # Install the app
