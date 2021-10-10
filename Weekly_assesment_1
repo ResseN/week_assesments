@@ -1,5 +1,5 @@
 #  1. Spin up VM.
-#  VM was deployed on AWS with white ip (3.123.228.217), open port 80 and Debian 11 OS.
+#  VM was deployed on AWS with white ip (3.123.228.217), open port 80, 8080 and Debian 11 OS.
 
 #  2. Install Nginx web server and git
 
@@ -20,18 +20,151 @@ git config --global user.email=rurenkou@gmail.com
 #  Create 2 local repository. First for dev to make changes, second for prod to check changes
 
 mkdir /var/www/html/prod 
-mkdir /home/admin/dev
+mkdir /home/${USER}/dev
 cd /var/www/html/prod
 git clone https://github.com/ResseN/mdt
-cd /home/admin/dev
+cd /home/${USER}/dev
 git clone https://github.com/ResseN/mdt
 
 # Create nginx host
 
 cp /etc/nginx/sites-available/default /etc/nginx/sites-available/mdt
-sed -i 's//var/www/html//var/www/html/prod/mdt/www/g' /etc/nginx/sites-available/mdt
+sed -i 's*/var/www/html*/var/www/html/prod/mdt/www*g' /etc/nginx/sites-available/mdt
 ln -s /etc/nginx/sites-available/mdt /etc/nginx/sites-enabled/mdt
 nginx -t
 systemctl reload nginx
 
 #  Site is accessible from internet on link http://3.123.228.217
+
+# 4. Setup a cron job for a regular (every 1 minute) checkout from main branch https://github.com/YOURNAME/mdt-fork 
+
+crontab -e -u $USER
+#add next line 
+* * * * * cd /var/www/html/prod/mdt && sudo git pull origin master
+
+#check crontab log
+#(Screenshot2)
+
+
+#  5  Update index.html from your machine, push changes to Git and confirm updated content on web page
+sed -i 's/Flash/Rembo/g' /home/${USER}/dev/mdt/www/index.html
+git status
+git add .
+git commit -m "changed Flash to Rembo"
+git push origin master
+
+# Enter mail and Token
+# Wait cron and check changes in site. (Screenshot3)
+
+#  6. Configure Github hook instead of cron.
+#  disable cron job
+crontab -r -u $USER
+
+# Github hook its a POST request to our site url after event occurs. In our case that event is push. I have 2 variants of solutions that task. 
+# First variant via operating system tools and scripts. That method is unsafe but working in our case.
+# POST request is request to our webserver nginx. We can find that request in access.log of nginx. 
+# So we can create a script  which will check log and execute required commands.  After that we can create a service of that script.
+
+sudo nano /usr/bin/check_webhook.sh
+
+# add next text to the file
+
+tail -fn0 /var/log/nginx/access.log | \
+while read line ; do
+        echo "$line" | grep "GitHub-Hookshot/9b4b05d"
+        if [ $? = 0 ]
+        then
+                cd /var/www/html/prod/mdt && sudo git pull origin master
+        fi
+done
+
+# save and close the file
+
+sudo chmod u+x /usr/bin/check_webhook.sh
+
+# create service
+
+sudo nano /etc/systemd/system/webhook.service
+
+# add next text
+
+[Unit]
+Description=Webhook Check Service
+After=network.target
+StartLimitIntervalSec=10
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=root
+ExecStart=/bin/bash /usr/bin/check_webhook.sh
+
+[Install]
+WantedBy=multi-user.target
+
+# save and close the file
+
+systemctl daemon-reload
+systemctl start webhook
+systemctl ebable webhook
+
+# Now we can make changes on dev repostiry and take push on github and automatically changes will pulled on prod repository  
+#  Second variant via external solutions, for example webhookd from https://github.com/ncarlier/webhookd
+# Install the app
+
+echo "deb [signed-by=/usr/share/keyrings/azlux-archive-keyring.gpg] http://packages.azlux.fr/debian/ bullseye main" | sudo tee /etc/apt/sources.list.d/azlux.list
+sudo wget -O /usr/share/keyrings/azlux-archive-keyring.gpg  https://azlux.fr/repo.gpg
+apt update
+apt install webhookd
+
+#Configure app
+
+echo WHD_HOOK_LOG_DIR="/var/log/webhookd.log" >> /etc/default/webhookd.env
+echo WHD_NOTIFICATION_URI=http://3.123.228.217/addtowebhookfromgithub >> /etc/default/webhookd.env
+systemctl start webhookd
+systemctl enable webhookd
+mkdir /var/log/webhookd.log /opt/scripts
+chown webhookd /var/etc/webhookd.log
+chmod 755 /var/etc/webhookd.log
+echo '#! /bin/bash cd /var/www/html/prod/mdt && sudo git pull origin master' > addtowebhookfromgithub.sh
+chmod +x addtowebhookfromgithub.sh
+echo 'webhookd  ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+# Set new webhook from github repository
+(Screenshot4)
+
+## Now we can make changes on dev repostiry and take push on github and automatically changes will pulled on prod repository
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
