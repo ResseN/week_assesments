@@ -138,8 +138,27 @@ echo 'webhookd  ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 ## Now we can make changes on dev repostiry and take push on github and automatically changes will pulled on prod repository
 
+#  7. Use local git hooks for validation of incoming commits (reject commits if there is a “shit” string in the files)
+# Hook that we need is pre-commit - script that executed on stage before commit
+# Create new script in .git/hooks/pre-commit
+touch /home/${USER}/dev/mdt/.git/hooks/pre-commit
+chmod +x /home/${USER}/dev/mdt/.git/hooks/pre-commit
+# Add next text to script
 
+#! /bin/bash
 
+verified_string=shit
+git diff | grep -i ${verified_string} &> /dev/null && checker=0 || checker=1
+
+if [ ${checker} -eq 0 ];  then
+  echo "Your current commit has forbidden content. Please eliminate the issue with ${verified_string}"
+  exit 1
+else
+  echo "Verification passed"
+  exit 0
+fi
+
+# Close and safe file. Thats all - hook will start automatically on stage pre-commit. Verified_string is case unsensitive.
 
 
 
