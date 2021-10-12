@@ -160,32 +160,152 @@ fi
 
 # Close and safe file. Thats all - hook will start automatically on stage pre-commit. Verified_string is case unsensitive.
 
+#  8. Configure Nginx to Proxy Websockets and cache static content within 1 hour 
+#  To demonstrate working nginx config for proxy websocket we need to deploy server and client between which would established websocket connection. 
+#  To do this we will use node.js tools for working with websockets. Thats name ws from https://github.com/websockets/ws
+#  Installing 
+apt-get install nodejs npm
+ln -s /usr/bin/nodejs /usr/local/bin/node
+npm install ws wscat
+touch server.js
+# Add next text
 
 
+console.log("Server started");
+var Msg = '';
+var WebSocketServer = require('ws').Server
+    , wss = new WebSocketServer({port: 8010});     # set port for server
+    wss.on('connection', function(ws) {
+        ws.on('message', function(message) {
+        console.log('Received from client: %s', message);
+        ws.send('Server received from client: ' + message);
+    });
+ });
 
+# Start the server
+node server.js 
+#server started and ready to receive connections
+# next run the client side
+/usr/local/lib/node_modules/wscat/bin/wscat --connect ws://localhost:8010     # connect directly to check that all is working
+# Connected (press CTRL+C to quit)
+# > Hello
+# < Server received from client: Hello
 
+#  Next we configure nginx to proxy request to our websocket server (not for websocket protocol)
+nano /etc/nginx/sites-available/socket
+#  Add next text
 
+    upstream websocket {
+        server localhost:8010;
+    }
 
+    server {
+        listen 8020;
+        location / {
+            proxy_pass http://websocket;
+        }
+    }
 
+ln -s /etc/nginx/sites-available/socket /etc/sites-enabled/socket   
+nginx -t 
+systemctl reload nginx
 
+#  Check via curl to make sure that nginx cofigured right
 
+curl localhost:8010
+#  Upgrade Required
+curl localhost:8020
+#  Upgrade Required
+#  Nginx configured to proxy request right
+#  Next check from client websocket
 
+/usr/local/lib/node_modules/wscat/bin/wscat --connect ws://localhost:8020     # connect via nginx  to check that we has problem
 
+#  error: Unexpected server response: 426
 
+#  Now need make config to proxy websocket. Set /etc/nginx/sites-available/socket to the next view
 
+nano /etc/nginx/sites-available/socket
 
+    map $http_upgrade $connection_upgrade {
+        default upgrade;
+        '' close;
+    }
 
+    upstream websocket {
+        server localhost:8010;
+    }
 
+    server {
+        listen 8020;
+        location / {
+            proxy_pass http://websocket;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection $connection_upgrade;
+            proxy_set_header Host $host;
+        }
+    }
+#  Headers Upgrade and Connection are missed when proxying request, so we must set their manually from nginx 
+#  Testing connection - all is good!
 
+/usr/local/lib/node_modules/wscat/bin/wscat --connect ws://localhost:8020
 
+#  Connected (press CTRL+C to quit)
+#  > hello server
+#  < Server received from client: hello server
+ 
+#  Next set cache static content within 1 hour  in host mdt]
 
+nano /etc/nginx/sites-available/mdt 
 
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        root /var/www/html/prod/mdt/www;
+        index index.html index.htm index.nginx-debian.html;
+        server_name _;
+                    
+        location ~* \.(?:html?|xml|json|jpg|jpeg|gif|png|ico|css|js)$ {
+          expires 1h;
+          add_header Cache-Control "public";
+          access_log off;
+        }
+}
+nginx -t
+systemctl reload nginx
+#  Check that changes applied
+curl -i localhost
 
-
-
-
-
-
-
-
-
+HTTP/1.1 200 OK
+Server: nginx/1.18.0
+Date: Tue, 12 Oct 2021 20:47:04 GMT                     # Start time
+Content-Type: text/html
+Content-Length: 19988
+Last-Modified: Mon, 11 Oct 2021 17:43:00 GMT
+Connection: keep-alive
+ETag: "616477a4-4e14"
+Expires: Tue, 12 Oct 2021 21:47:04 GMT                  # Endd time after 1 hour 
+Cache-Control: max-age=3600
+Cache-Control: public
+Accept-Ranges: bytes
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
