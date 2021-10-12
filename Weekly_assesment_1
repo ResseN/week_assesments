@@ -148,7 +148,7 @@ chmod +x /home/${USER}/dev/mdt/.git/hooks/pre-commit
 #! /bin/bash
 
 verified_string=shit
-git diff | grep -i ${verified_string} &> /dev/null && checker=0 || checker=1
+git diff --cached | grep -i ${verified_string} &> /dev/null && checker=0 || checker=1
 
 if [ ${checker} -eq 0 ];  then
   echo "Your current commit has forbidden content. Please eliminate the issue with ${verified_string}"
@@ -291,10 +291,19 @@ Cache-Control: public
 Accept-Ranges: bytes
  
  
+#  9. Merge feature branch with main, rebase git merge commit, squash all commits
  
+ git checkout -b feature
+ git add .
+ git commit -m ""
+ git checkout master
+ git merge feature
+ git log --graph
+ (Screenshot6)
  
- 
- 
+ git rebase -i HEAD~21
+ git log graph
+ (Screenshot7)
  
  
  
