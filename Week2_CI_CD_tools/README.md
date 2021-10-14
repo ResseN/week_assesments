@@ -17,5 +17,5 @@
 <h2>4. Create “Multibranch Pipeline” pipeline job</h2>
 <h2>5. Setup the GitHub webhook to trigger the jobs</h2>
 <h2>6. Use Scripted pipeline instead of declarative</h2>
-<h2>7. Spin up VM with installed</h2>
+<h2>7. Spin up VM with installed Artifactory</h2>
 <h2>8. Add new stage for publishing artifacts into Artifactory</h2>
