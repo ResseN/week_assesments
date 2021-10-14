@@ -1,7 +1,6 @@
 <h1>Weekly assesment 2 CI/CD Tools</h1>
 <h2>1. Create Jenkins VM with internet access </h2>
-<p>
-apt update
+<l>apt update</l>
 apt upgrade
 apt-get install openjdk-8-jdk git
 wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
