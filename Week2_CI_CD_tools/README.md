@@ -15,8 +15,8 @@
 <h2>2. Create Agent VM </h2>
 <h2>3. Configure tools – NodeJS</h2>
 <p>Manage Jenkins -> Manage plagins -> Available Plagins -> NodeJS Plagin</p>
-<img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/Plagin_install.png" height="300px"/> 
-<img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/Nodejs_install.png" height="300px"/> 
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/Plagin_install.png" height="600px"/> 
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/Nodejs_install.png" height="600px"/> 
 <h2>4. Create “Multibranch Pipeline” pipeline job</h2>
 <h2>5. Setup the GitHub webhook to trigger the jobs</h2>
 <h2>6. Use Scripted pipeline instead of declarative</h2>
