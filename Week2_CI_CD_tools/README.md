@@ -1,6 +1,7 @@
 <h1>Weekly assesment 2 CI/CD Tools</h1>
 <h2>1. Create Jenkins VM with internet access </h2>
 <ul>
+  <li>sudo -i</li>
   <li>apt update</li>
   <li>apt upgrade</li>
   <li>apt-get install openjdk-8-jdk git</li>
@@ -11,9 +12,27 @@
   <li>systemctl enable jenkins</li>
   <li>sed -i 's/8080/8081/g' /etc/default/jenkins</li>
   <li>systemctl restart jenkins.service</li>
+  <li>su - jenkins</li>
+  <li>ssh-keygen</li>
+  <li>cat .ssh/id_rsa.pub</li>
+  <li>ssh root@18.157.187.4</li>
+  <blockquote>
+    The authenticity of host '18.157.187.4 (18.157.187.4)' can't be established.
+ECDSA key fingerprint is SHA256:Wyjqy066e3md7DzTSRwmUZWMrIWcbNUHSdZyPZRK/Ds.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '18.157.187.4' (ECDSA) to the list of known hosts.
+  </blockquote>
 </ul>
 <h2>2. Create Agent VM </h2>
-<h2>3. Configure tools – NodeJS</h2>
+<ul>
+  <li>sudo -i</li>
+  <li>apt update</li>
+  <li>apt upgrade</li>
+  <li>apt install git openjdk-8-jre</li>
+  <li>mkdir /opt/jenkins</li>
+  <li>nano .ssh/authorized_keys   # insert copied id_rsa.pub from jenkins host</li>
+</ul>
+  <h2>3. Configure tools – NodeJS</h2>
 <p>Manage Jenkins -> Manage plagins -> Available Plagins -> NodeJS Plagin -> Install & restart jenkins</p>
 <img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/Plagin_install.png" height="600px"/> 
 <p>Manage Jenkins -> Global Tools Configuration -> NodeJS -> Add NodeJS</p>
