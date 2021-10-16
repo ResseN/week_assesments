@@ -25,6 +25,12 @@
   </pre>
   </blockquote>
 </ul>
+<p>Enable role-based policy</p>
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/enable_role_based_strategy.png" height="600px"/> 
+<p>Create role for user</p>
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/manage_roles.png" height="600px"/> 
+<p>Assign role for jenkins-yuriyrurenko to user</p>
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/assign_roles.png" height="600px"/> 
 <h2>2. Create Agent VM </h2>
 <ul>
   <li>sudo -i</li>
