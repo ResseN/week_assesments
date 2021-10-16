@@ -38,7 +38,7 @@
   <li>apt upgrade</li>
   <li>apt install git openjdk-8-jre</li>
   <li>mkdir /opt/jenkins</li>
-  <li>nano .ssh/authorized_keys   # insert copied id_rsa.pub from jenkins host</li>
+  <li>nano .ssh/authorized_keys                 # insert copied id_rsa.pub from jenkins host</li>
 </ul>
 <p>Add jenkins node</p>
 <img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/Jenkins_node_add.png" height="600px"/> 
