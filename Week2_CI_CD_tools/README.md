@@ -17,10 +17,12 @@
   <li>cat .ssh/id_rsa.pub</li>
   <li>ssh root@18.157.187.4</li>
   <blockquote>
+   <pre> 
     The authenticity of host '18.157.187.4 (18.157.187.4)' can't be established.
     ECDSA key fingerprint is SHA256:Wyjqy066e3md7DzTSRwmUZWMrIWcbNUHSdZyPZRK/Ds.
     Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
     Warning: Permanently added '18.157.187.4' (ECDSA) to the list of known hosts.
+  </pre>
   </blockquote>
 </ul>
 <h2>2. Create Agent VM </h2>
