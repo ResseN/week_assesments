@@ -37,7 +37,7 @@
 <p>Add jenkins node</p>
 <img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/Jenkins_node_add.png" height="600px"/> 
 <p>Check jenkins node status</p>
-<img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/jenkins_node_status.png" height="600px"/> 
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/jenkins_node_status.png" height="200px"/> 
   <h2>3. Configure tools – NodeJS</h2>
 <p>Manage Jenkins -> Manage plagins -> Available Plagins -> NodeJS Plagin -> Install & restart jenkins</p>
 <img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/Plagin_install.png" height="600px"/> 
