@@ -148,6 +148,9 @@
    }
    </pre>
 </blockquote>
+<p>Result of executing job</p>
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/artifactory_results.png" height="100%"/>
+
 
 
 
