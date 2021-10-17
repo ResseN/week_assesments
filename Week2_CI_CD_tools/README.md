@@ -108,6 +108,36 @@
 <img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/Github_webhook_log_.png" height="100%"/>
 
 <h2>6. Use Scripted pipeline instead of declarative</h2>
+<p>Write scripted pipeline - named <a href="https://github.com/ResseN/mdt/blob/master/Jenkinsfile.script">Jenkinsfile.script</a>.</p>
+<blockquote>
+   <pre>
+   node ("ubuntu_2004_agent") {
+    stage("Compressing"){
+        parallel (
+                 JS: { nodejs('NodeJS16'){sh 'find www/js/ -name "*.js" -printf \'%f\n\'| xargs -I {} uglifyjs www/js/{} -o www/min/min.{}'}},
+                 CSS: { nodejs('NodeJS16'){sh 'find www/css/ -name "*.css" -printf \'%f\n\'| xargs -I {} cleancss www/css/{} -o www/min/min.{}'}},
+                 failFast: true
+        )
+    }
+    stage("Archieving") {
+        sh 'tar cf mdt.tar --exclude=.git* --exclude=www/css --exclude=www/js --exclude=mdt.tar . '
+        archiveArtifacts artifacts: 'mdt.tar', allowEmptyArchive: false, fingerprint: true, onlyIfSuccessful: true
+    }
+    stage("Publication") {
+        def server = Artifactory.server 'Artifactory_week_ass'
+        def uploadSpec = '''{
+                "files": [
+                    {
+                    "pattern": "mdt.tar",
+                    "target": "general-repo-local/${BRANCH_NAME}/mdt.v.${BUILD_NUMBER}.tar"
+                    }
+                ]
+            }'''
+        server.upload spec: uploadSpec
+    }
+}
+   </pre>
+</blockquote>
 <h2>7. Spin up VM with installed Artifactory</h2>
 <ul>
   <li>apt update</li>
