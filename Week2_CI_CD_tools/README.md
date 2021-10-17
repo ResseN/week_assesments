@@ -54,7 +54,7 @@
 <p>Config multibranch pipeline</p>
 <img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/Multibranch_pipeline_config.png" height="600px"/> 
 <p>Use fork from previous week_assessment <a href="https://github.com/ResseN/mdt">https://github.com/ResseN/mdt</a></p>
-<p>Write <a href=https://github.com/ResseN/mdt/blob/master/Jenkinsfile target="_blank">Jenkinsfile</a></p>
+<p>Write <a href=https://github.com/ResseN/mdt/blob/master/Jenkinsfile>Jenkinsfile</a></p>
 <blockquote>
    <pre>
    pipeline{
@@ -91,6 +91,92 @@
    </pre>
 </blockquote>
 
+<blockquote>
+   <pre>
+   Console Output
+Branch indexing
+09:14:07 Connecting to https://api.github.com with no credentials, anonymous access
+Obtained Jenkinsfile from e1e28e61819d34abd31e66873af28ecbb049688d
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on ubuntu_2004_agent in /opt/jenkins/workspace/yRurenko_week_assesment_2_master
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+The recommended git tool is: NONE
+No credentials specified
+Cloning the remote Git repository
+Cloning with configured refspecs honoured and without tags
+Cloning repository https://github.com/ResseN/mdt.git
+ > git init /opt/jenkins/workspace/yRurenko_week_assesment_2_master # timeout=10
+Fetching upstream changes from https://github.com/ResseN/mdt.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.25.1'
+ > git fetch --no-tags --force --progress -- https://github.com/ResseN/mdt.git +refs/heads/master:refs/remotes/origin/master # timeout=10
+Avoid second fetch
+Checking out Revision e1e28e61819d34abd31e66873af28ecbb049688d (master)
+Commit message: "Merge pull request #2 from ResseN/feature_archive"
+First time build. Skipping changelog.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Compressing)
+[Pipeline] parallel
+[Pipeline] { (Branch: JS)
+[Pipeline] { (Branch: CSS)
+[Pipeline] stage
+[Pipeline] { (JS)
+[Pipeline] stage
+[Pipeline] { (CSS)
+[Pipeline] nodejs
+[Pipeline] nodejs
+[Pipeline] {
+[Pipeline] sh
+[Pipeline] {
+[Pipeline] sh
++ xargs -I {} uglifyjs www/js/{} -o www/min/min.{}
++ find www/js/ -name *.js -printf %f
+
++ xargs -I {} cleancss www/css/{} -o www/min/min.{}
++ find www/css/ -name *.css -printf %f
+
+ > git config remote.origin.url https://github.com/ResseN/mdt.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/master:refs/remotes/origin/master # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f e1e28e61819d34abd31e66873af28ecbb049688d # timeout=10
+[Pipeline] }
+[Pipeline] // nodejs
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // nodejs
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Archieving)
+[Pipeline] sh
++ tar cf mdt.tar --exclude=.git* --exclude=www/css --exclude=www/js --exclude=mdt.tar .
+[Pipeline] archiveArtifacts
+Archiving artifacts
+Recording fingerprints
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+   </pre>
+</blockquote>
 <h2>5. Setup the GitHub webhook to trigger the jobs</h2>
 <h2>6. Use Scripted pipeline instead of declarative</h2>
 <h2>7. Spin up VM with installed Artifactory</h2>
