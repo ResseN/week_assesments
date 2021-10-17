@@ -138,6 +138,8 @@
 }
    </pre>
 </blockquote>
+<p>Blue Ocean Job Log</p>
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/scripted_job_log.png" height="100%"/>
 <h2>7. Spin up VM with installed Artifactory</h2>
 <ul>
   <li>apt update</li>
