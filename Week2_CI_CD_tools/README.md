@@ -120,3 +120,44 @@
   <li>systemctl enable artifactory.service</li>
 </ul> 
 <h2>8. Add new stage for publishing artifacts into Artifactory</h2>
+<p>Create local ropository on Artifactory server</p>
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/Create_local_repository.png" height="100%"/>
+<p>Install artefactory plagin on Jenkins</p>
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/artifactory_plagin_install.png" height="100%"/>
+<p>Config artefactory plagin</p>
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/artifactory_plagin_settings.png" height="100%"/>
+<p>Add stage for publishing artefact on artefactory in declarative pipeline</p>
+<p>Full Jenkinsfile <a href=https://github.com/ResseN/mdt/blob/master/Jenkinsfile>here</a></p>
+<blockquote>
+   <pre>
+   stage("Publication"){
+           steps{
+                rtUpload (
+                    serverId: 'Artifactory_week_ass',
+                    spec:
+                        '''{
+                            "files": [
+                                {
+                                "pattern": "mdt.tar",
+                                "target": "general-repo-local/${BRANCH_NAME}/mdt.v.${BUILD_NUMBER}.tar"
+                                }
+                            ]
+                        }'''
+                )
+           }
+   }
+   </pre>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+
