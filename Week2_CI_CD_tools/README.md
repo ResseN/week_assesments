@@ -54,6 +54,7 @@
 <p>Config multibranch pipeline</p>
 <img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/Multibranch_pipeline_config.png" height="600px"/> 
 <p>Use fork from previous week_assessment <a href="https://github.com/ResseN/mdt">https://github.com/ResseN/mdt</a></p>
+<p>Write <a href=https://github.com/ResseN/mdt/blob/master/Jenkinsfile>Jenkinsfile</a></p>
 <blockquote>
    <pre>
    pipeline{
