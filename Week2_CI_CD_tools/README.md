@@ -109,4 +109,14 @@
 
 <h2>6. Use Scripted pipeline instead of declarative</h2>
 <h2>7. Spin up VM with installed Artifactory</h2>
+<ul>
+  <li>apt update</li>
+  <li>apt upgrade</li>
+  <li>lsb_release -c</li>
+  <li>wget -qO - https://releases.jfrog.io/artifactory/api/gpg/key/public | sudo apt-key add -</li>
+  <li>echo "deb https://releases.jfrog.io/artifactory/artifactory-pro-debs focal main" | sudo tee -a /etc/apt/sources.list</li>
+  <li>sudo apt-get update && sudo apt-get install jfrog-artifactory-pro</li>
+  <li>systemctl start artifactory.service</li>
+  <li>systemctl enable artifactory.service</li>
+</ul> 
 <h2>8. Add new stage for publishing artifacts into Artifactory</h2>
