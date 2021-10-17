@@ -95,6 +95,12 @@
 <img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/Stage_log_blue_ocean.png" height="250px"/> 
 
 <h2>5. Setup the GitHub webhook to trigger the jobs</h2>
+<p>To setup Jenkins for trigger the job - install plagin</p>
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/Trigger_plagin_install.png" height="100%"/>
+<pAfter installing plagin in multibranch pipeline job choose Periodically and set interval for Poll SCM</p>
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/trigger%20poll%20scm.png" height="100%"/>
+<p>Scanning repository will performed every set interval and if changes would found in repository - job started automatically</p>
+
 <h2>6. Use Scripted pipeline instead of declarative</h2>
 <h2>7. Spin up VM with installed Artifactory</h2>
 <h2>8. Add new stage for publishing artifacts into Artifactory</h2>
