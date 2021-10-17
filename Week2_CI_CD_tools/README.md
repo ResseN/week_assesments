@@ -154,11 +154,11 @@
 <h2>8. Add new stage for publishing artifacts into Artifactory</h2>
 <p>Create local ropository on Artifactory server</p>
 <img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/Create_local_repository.png" height="100%"/>
-<p>Install artefactory plagin on Jenkins</p>
+<p>Install Artifactory plagin on Jenkins</p>
 <img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/artifactory_plagin_install.png" height="100%"/>
-<p>Config artefactory plagin</p>
+<p>Config Artifactory plagin</p>
 <img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/artifactory_plagin_settings.png" height="100%"/>
-<p>Add stage for publishing artefact on artefactory in declarative pipeline</p>
+<p>Add stage for publishing artefact on Artifactory in declarative pipeline</p>
 <p>Full Jenkinsfile <a href=https://github.com/ResseN/mdt/blob/master/Jenkinsfile>here</a></p>
 <blockquote>
    <pre>
