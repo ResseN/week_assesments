@@ -102,7 +102,7 @@
 <p>Scanning repository will performed every set interval and if changes would found in repository - job started automatically</p>
 <p>To setup job to been triggered by github webhook must in "Scan Repository Triggers" choose "scan by webhook" and generate some token</p>
 <img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/trigger_webhook.png" height="100%"/>
-<p>On github side in project repository enter to Settings -> Webhooks -> Add webhook</p>
+<p>On github side in project repository enter to Settings -> Webhooks -> Add webhook -> http://18.192.207.233:8081/multibranch-webhook-trigger/invoke?token=triggertokenforwebhook</p>
 <img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/github_webhook_create.png" height="100%"/>
 <p>Check deliverability of webhooks to Jenkins</p>
 <img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/Github_webhook_log_.png" height="100%"/>
