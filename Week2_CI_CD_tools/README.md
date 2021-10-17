@@ -48,7 +48,7 @@
 <p>Manage Jenkins -> Manage plagins -> Available Plagins -> NodeJS Plagin -> Install & restart jenkins</p>
 <img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/Plagin_install.png" height="600px"/> 
 <p>Manage Jenkins -> Global Tools Configuration -> NodeJS -> Add NodeJS</p>
-<img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/Nodejs_install.png" height="600px"/> 
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/Nodejs_installation.png" height="600px"/> 
 <h2>4. Create “Multibranch Pipeline” pipeline job</h2>
 <h2>5. Setup the GitHub webhook to trigger the jobs</h2>
 <h2>6. Use Scripted pipeline instead of declarative</h2>
