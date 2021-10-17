@@ -38,7 +38,7 @@
   <li>apt upgrade</li>
   <li>apt install git openjdk-8-jre</li>
   <li>mkdir /opt/jenkins</li>
-  <li>nano .ssh/authorized_keys                 # insert copied id_rsa.pub from jenkins host</li>
+  <li>nano .ssh/authorized_keys # insert copied id_rsa.pub from jenkins host</li>
 </ul>
 <p>Add jenkins node</p>
 <img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/Jenkins_node_add.png" height="600px"/> 
@@ -50,6 +50,46 @@
 <p>Manage Jenkins -> Global Tools Configuration -> NodeJS -> Add NodeJS</p>
 <img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/Nodejs_installation.png" height="600px"/> 
 <h2>4. Create “Multibranch Pipeline” pipeline job</h2>
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/Create%20Lab_name%20folder_multibranch_pipeline.png" height="600px"/> 
+<p>Config multibranch pipeline</p>
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/Multibranch_pipeline_config.png" height="600px"/> 
+<p>Use fork from previous week_assessment <a href="https://github.com/ResseN/mdt">https://github.com/ResseN/mdt</a></p>
+<blockquote>
+   <pre>
+   pipeline{
+    agent {
+        label 'ubuntu_2004_agent'
+    }
+    stages{
+        stage("Compressing"){
+            parallel{
+                stage("JS"){
+                    steps{
+                        nodejs(nodeJSInstallationName: 'NodeJS16'){
+                            sh 'find www/js/ -name "*.js" -printf \'%f\n\'| xargs -I {} uglifyjs www/js/{} -o www/min/min.{}'
+                        }
+                    }
+                }
+                stage("CSS"){
+                    steps{
+                        nodejs(nodeJSInstallationName: 'NodeJS16'){
+                            sh 'find www/css/ -name "*.css" -printf \'%f\n\'| xargs -I {} cleancss www/css/{} -o www/min/min.{}'
+                        }
+                    }
+                }
+            }
+        }
+        stage("Archieving"){
+            steps{
+                sh 'tar cf mdt.tar --exclude=.git* --exclude=www/css --exclude=www/js --exclude=mdt.tar . '
+                archiveArtifacts artifacts: 'mdt.tar', allowEmptyArchive: false, fingerprint: true, onlyIfSuccessful: true
+            }
+        }
+    }
+}
+   </pre>
+</blockquote>
+
 <h2>5. Setup the GitHub webhook to trigger the jobs</h2>
 <h2>6. Use Scripted pipeline instead of declarative</h2>
 <h2>7. Spin up VM with installed Artifactory</h2>
