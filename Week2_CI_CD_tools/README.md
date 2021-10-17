@@ -100,6 +100,12 @@
 <p>After installing plagin in multibranch pipeline job in section "Scan Repository Triggers" choose Periodically and set interval for Poll SCM</p>
 <img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/trigger%20poll%20scm.png" height="100%"/>
 <p>Scanning repository will performed every set interval and if changes would found in repository - job started automatically</p>
+<p>To setup job to been triggered by github webhook must in "Scan Repository Triggers" choose "scan by webhook" and generate some token</p>
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/trigger_webhook.png" height="100%"/>
+<p>On github side in project repository enter to Settings -> Webhooks -> Add webhook</p>
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/github_webhook_create.png" height="100%"/>
+<p>Check deliverability of webhooks to Jenkins</p>
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/Github_webhook_log_.png" height="100%"/>
 
 <h2>6. Use Scripted pipeline instead of declarative</h2>
 <h2>7. Spin up VM with installed Artifactory</h2>
