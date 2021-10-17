@@ -92,6 +92,7 @@
 </blockquote>
 <p>Job log in <a href=https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/Job.log>log</a> file</p>
 <img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/Stage_log.png" height="600px"/> 
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week2_CI_CD_tools/Stage_log_blue_ocean.png" height="250px"/> 
 
 <h2>5. Setup the GitHub webhook to trigger the jobs</h2>
 <h2>6. Use Scripted pipeline instead of declarative</h2>
