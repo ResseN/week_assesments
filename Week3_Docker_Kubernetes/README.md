@@ -34,6 +34,18 @@ CMD ["python3", "-m", "demo"]
 <p>Start docker container, check availability of python_app, show container logs and status running container on image below</p>
 <img src="https://github.com/ResseN/week_assesments/blob/main/Week3_Docker_Kubernetes/resources/docker_ps_log.png" width=100%>
 <h2>3. Setup K8S cluster using Minikube(1 master + 1 worker node is enough)</h2>
+<p>Minikube cluster was installed on MacBook with VirtualBox. </p>
+<blockquote>
+   <pre> 
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
+sudo install minikube-darwin-amd64 /usr/local/bin/minikube
+minikube version
+minikube start -n 2
+   </pre>
+</blockquote>
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week3_Docker_Kubernetes/resources/minikube_cluster_create.png" width=100%>
+<p>Checking nodes of cluster</p>
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week3_Docker_Kubernetes/resources/minikube_cluster_nodes.png" width=100%>
 <h2>4. Deploy the application into the K8S cluster</h2>
 <h3>• create Deployment.yaml file with containerized application</h3>
 <h3>The deployment requires 3 replicas, “RollingUpdate” strategy. Emulate the “RollingUpdate” strategy by updating docker image. Provide screenshots. Define the liveness and readiness probes to /health endpoint and 8080 port, resources(requests/limits)</h3>
