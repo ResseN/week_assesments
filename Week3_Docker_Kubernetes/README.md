@@ -48,7 +48,32 @@ minikube start -n 2
 <img src="https://github.com/ResseN/week_assesments/blob/main/Week3_Docker_Kubernetes/resources/minikube_cluster_nodes.png" width=100%>
 <h2>4. Deploy the application into the K8S cluster</h2>
 <h3>• create Deployment.yaml file with containerized application</h3>
-<h3>The deployment requires 3 replicas, “RollingUpdate” strategy. Emulate the “RollingUpdate” strategy by updating docker image. Provide screenshots. Define the liveness and readiness probes to /health endpoint and 8080 port, resources(requests/limits)</h3>
-<h3>Create a “Service” object which exposes Pods with application outside the K8S cluster in order to access each of the replicas through the single IP address/DNS name</h3>
-<h3>Specify PodDistruptionBudget which defines that only 1 replica can be down</h3>
+<p>Writed <a href="https://github.com/ResseN/python-app/blob/main/Deployment.yaml">Deployment</a> file to deploy app on the cluster</p>
+<blockquote>
+   <pre> 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: pythonapp
+  name: pythonapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pythonapp
+  template:
+    metadata:
+      labels:
+        app: pythonapp
+    spec:
+      containers:
+      - image: admressen/python_app:v0.1
+        name: pythonapp
+   </pre>
+</blockquote>
+<p><a href="https://github.com/ResseN/week_assesments/blob/main/Week3_Docker_Kubernetes/resources/k8s_deployment_log">Log</a> with output of entred commands show us that deploy is created, pod upped on non-master node but app service accessed from external IP of both nodes</p>
+<h3>*The deployment requires 3 replicas, “RollingUpdate” strategy. Emulate the “RollingUpdate” strategy by updating docker image. Provide screenshots. Define the liveness and readiness probes to /health endpoint and 8080 port, resources(requests/limits)</h3>
+<h3>*Create a “Service” object which exposes Pods with application outside the K8S cluster in order to access each of the replicas through the single IP address/DNS name</h3>
+<h3>*Specify PodDistruptionBudget which defines that only 1 replica can be down</h3>
 
