@@ -28,7 +28,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 CMD ["python3", "-m", "demo"]
    </pre>
 </blockquote>
-<p></p>
+<p>Docker build <a href=""https://github.com/ResseN/week_assesments/blob/main/Week3_Docker_Kubernetes/resources/docker_build.log>log</p>
+<p>Docker image size equal 49.1 MB</p> 
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week3_Docker_Kubernetes/resources/docker_image_size.png" width=100%>
 <h2>3. Setup K8S cluster using Minikube(1 master + 1 worker node is enough)</h2>
 <h2>4. Deploy the application into the K8S cluster</h2>
 <h3>• create Deployment.yaml file with containerized application</h3>
