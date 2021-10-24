@@ -85,5 +85,19 @@ spec:
 <p>LivenessProbe and readinessProbe working we can see in pods log</p>
 <img src="https://github.com/ResseN/week_assesments/blob/main/Week3_Docker_Kubernetes/resources/pod_probes_log.png">
 <h3>*Create a “Service” object which exposes Pods with application outside the K8S cluster in order to access each of the replicas through the single IP address/DNS name</h3>
+<p>Creating service we can with next command:</p>
+<blockquote>
+   <pre>
+   kubectl expose deploy pythonapp --port=8080 --target-port=8080 --type=NodePort
+   </pre>
+</blockquote>
+<p>Multiple requests to ip:port of service provide answers from different pods. Working as internal loadbalancer</p>
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week3_Docker_Kubernetes/resources/services_answer.png">
 <h3>*Specify PodDistruptionBudget which defines that only 1 replica can be down</h3>
-
+<p>To create PDB with 1 unavailable replica we need execute next command</p>
+<blockquote>
+   <pre>
+kubectl create poddisruptionbudget pythonapp --selector=pythonapp --max-unavailable=1
+   </pre>
+</blockquote>
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week3_Docker_Kubernetes/resources/pdb.png">
