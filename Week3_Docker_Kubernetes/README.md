@@ -74,6 +74,16 @@ spec:
 </blockquote>
 <p><a href="https://github.com/ResseN/week_assesments/blob/main/Week3_Docker_Kubernetes/resources/k8s_deployment_log">Log</a> with output of entred commands show us that deploy is created, pod upped on non-master node but app service accessed from external IP of both nodes</p>
 <h3>*The deployment requires 3 replicas, “RollingUpdate” strategy. Emulate the “RollingUpdate” strategy by updating docker image. Provide screenshots. Define the liveness and readiness probes to /health endpoint and 8080 port, resources(requests/limits)</h3>
+<p>To realise that requirement need use that <a href="https://github.com/ResseN/python-app/blob/main/Deployment_replica3.yaml">Deployment</a> file</p>
+<p>Demonstrating rollingupdate strategy executing next command</p>
+<blockquote>
+   <pre>
+   kubectl set image deployments/pythonapp pythonapp=admressen/python_app:v0.2
+   </pre>
+</blockquote>
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week3_Docker_Kubernetes/resources/rolling_update_log.png">
+<p>LivenessProbe and readinessProbe working we can see in pods log</p>
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week3_Docker_Kubernetes/resources/pod_probes_log.png">
 <h3>*Create a “Service” object which exposes Pods with application outside the K8S cluster in order to access each of the replicas through the single IP address/DNS name</h3>
 <h3>*Specify PodDistruptionBudget which defines that only 1 replica can be down</h3>
 
