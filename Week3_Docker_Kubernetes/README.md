@@ -31,6 +31,8 @@ CMD ["python3", "-m", "demo"]
 <p>Docker build <a href="https://github.com/ResseN/week_assesments/blob/main/Week3_Docker_Kubernetes/resources/docker_build.log">log</a></p>
 <p>Docker image size equal 49.1 MB</p> 
 <img src="https://github.com/ResseN/week_assesments/blob/main/Week3_Docker_Kubernetes/resources/docker_image_size.png" width=100%>
+<p>Start docker container, check availability of python_app, show container logs and status running container on image below</p>
+<img src="https://github.com/ResseN/week_assesments/blob/main/Week3_Docker_Kubernetes/resources/docker_ps_log.png" width=100%>
 <h2>3. Setup K8S cluster using Minikube(1 master + 1 worker node is enough)</h2>
 <h2>4. Deploy the application into the K8S cluster</h2>
 <h3>• create Deployment.yaml file with containerized application</h3>
