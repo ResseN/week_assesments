@@ -1,0 +1,80 @@
+bash-3.2$ kubectl apply -f Deployment.yaml 
+deployment.apps/pythonapp created
+bash-3.2$ kubectl get deploy
+NAME        READY   UP-TO-DATE   AVAILABLE   AGE
+pythonapp   1/1     1            1           11s
+bash-3.2$ kubectl get deploy
+NAME        READY   UP-TO-DATE   AVAILABLE   AGE
+pythonapp   1/1     1            1           15s
+bash-3.2$ kubectl get rs
+NAME                  DESIRED   CURRENT   READY   AGE
+pythonapp-c9cbff8dd   1         1         1       19s
+bash-3.2$ kubectl get pods
+NAME                        READY   STATUS    RESTARTS   AGE
+pythonapp-c9cbff8dd-rnqpf   1/1     Running   0          23s
+bash-3.2$ kubectl expose deploy pythonapp --port=8080 --type=NodePort --name=pythonapp
+service/pythonapp exposed
+bash-3.2$ kubectl get svc
+NAME         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
+kubernetes   ClusterIP   10.96.0.1      <none>        443/TCP          175m
+pythonapp    NodePort    10.103.29.58   <none>        8080:31299/TCP   7s
+bash-3.2$ kubectl get node
+NAME           STATUS   ROLES                  AGE    VERSION
+minikube       Ready    control-plane,master   175m   v1.22.2
+minikube-m02   Ready    <none>                 174m   v1.22.2
+bash-3.2$ kubectl get node -owide
+NAME           STATUS   ROLES                  AGE    VERSION   INTERNAL-IP      EXTERNAL-IP   OS-IMAGE              KERNEL-VERSION   CONTAINER-RUNTIME
+minikube       Ready    control-plane,master   175m   v1.22.2   192.168.99.100   <none>        Buildroot 2021.02.4   4.19.202         docker://20.10.8
+minikube-m02   Ready    <none>                 174m   v1.22.2   192.168.99.101   <none>        Buildroot 2021.02.4   4.19.202         docker://20.10.8
+bash-3.2$ kubectl get pods -owide
+NAME                        READY   STATUS    RESTARTS   AGE    IP           NODE           NOMINATED NODE   READINESS GATES
+pythonapp-c9cbff8dd-rnqpf   1/1     Running   0          2m5s   10.244.1.5   minikube-m02   <none>           <none>
+bash-3.2$ curl 192.168.99.101:31299
+Hostname: pythonapp-c9cbff8dd-rnqpf. Version: 0.2bash-3.2$ curl 192.168.99.101:31299
+Hostname: pythonapp-c9cbff8dd-rnqpf. Version: 0.2bash-3.2$ curl 192.168.99.101:31299
+Hostname: pythonapp-c9cbff8dd-rnqpf. Version: 0.2bash-3.2$ curl 192.168.99.101:31299
+Hostname: pythonapp-c9cbff8dd-rnqpf. Version: 0.2bash-3.2$ curl 192.168.99.101:31299
+Hostname: pythonapp-c9cbff8dd-rnqpf. Version: 0.2bash-3.2$ curl 192.168.99.101:31299
+Hostname: pythonapp-c9cbff8dd-rnqpf. Version: 0.2bash-3.2$ curl 192.168.99.101:31299
+Hostname: pythonapp-c9cbff8dd-rnqpf. Version: 0.2bash-3.2$ curl 192.168.99.101:31299
+Hostname: pythonapp-c9cbff8dd-rnqpf. Version: 0.2bash-3.2$ curl 192.168.99.101:31299
+Hostname: pythonapp-c9cbff8dd-rnqpf. Version: 0.2bash-3.2$ curl 192.168.99.101:31299
+Hostname: pythonapp-c9cbff8dd-rnqpf. Version: 0.2bash-3.2$ 
+bash-3.2$ kubectl logs pythonapp
+Error from server (NotFound): pods "pythonapp" not found
+bash-3.2$ kubectl logs pythonapp-c9cbff8dd-rnqpf
+2021-10-24 14:47:43   INFO :: root :: main.main :: Starting app
+2021-10-24 14:50:01   INFO :: aiohttp.access :: web_log.log :: 10.244.1.1 [24/Oct/2021:14:50:01 +0000] "GET / HTTP/1.1" 200 206 "-" "curl/7.64.1"
+2021-10-24 14:50:08   INFO :: aiohttp.access :: web_log.log :: 10.244.1.1 [24/Oct/2021:14:50:08 +0000] "GET / HTTP/1.1" 200 206 "-" "curl/7.64.1"
+2021-10-24 14:50:09   INFO :: aiohttp.access :: web_log.log :: 10.244.1.1 [24/Oct/2021:14:50:09 +0000] "GET / HTTP/1.1" 200 206 "-" "curl/7.64.1"
+2021-10-24 14:50:10   INFO :: aiohttp.access :: web_log.log :: 10.244.1.1 [24/Oct/2021:14:50:10 +0000] "GET / HTTP/1.1" 200 206 "-" "curl/7.64.1"
+2021-10-24 14:50:11   INFO :: aiohttp.access :: web_log.log :: 10.244.1.1 [24/Oct/2021:14:50:11 +0000] "GET / HTTP/1.1" 200 206 "-" "curl/7.64.1"
+2021-10-24 14:50:12   INFO :: aiohttp.access :: web_log.log :: 10.244.1.1 [24/Oct/2021:14:50:12 +0000] "GET / HTTP/1.1" 200 206 "-" "curl/7.64.1"
+2021-10-24 14:50:13   INFO :: aiohttp.access :: web_log.log :: 10.244.1.1 [24/Oct/2021:14:50:13 +0000] "GET / HTTP/1.1" 200 206 "-" "curl/7.64.1"
+2021-10-24 14:50:14   INFO :: aiohttp.access :: web_log.log :: 10.244.1.1 [24/Oct/2021:14:50:14 +0000] "GET / HTTP/1.1" 200 206 "-" "curl/7.64.1"
+2021-10-24 14:50:14   INFO :: aiohttp.access :: web_log.log :: 10.244.1.1 [24/Oct/2021:14:50:14 +0000] "GET / HTTP/1.1" 200 206 "-" "curl/7.64.1"
+2021-10-24 14:50:15   INFO :: aiohttp.access :: web_log.log :: 10.244.1.1 [24/Oct/2021:14:50:15 +0000] "GET / HTTP/1.1" 200 206 "-" "curl/7.64.1"
+bash-3.2$ curl 192.168.99.100:31299
+Hostname: pythonapp-c9cbff8dd-rnqpf. Version: 0.2bash-3.2$ curl 192.168.99.100:31299
+Hostname: pythonapp-c9cbff8dd-rnqpf. Version: 0.2bash-3.2$ curl 192.168.99.100:31299
+Hostname: pythonapp-c9cbff8dd-rnqpf. Version: 0.2bash-3.2$ curl 192.168.99.100:31299
+Hostname: 
+bash-3.2$ 
+bash-3.2$ 
+bash-3.2$ 
+bash-3.2$ kubectl logs pythonapp-c9cbff8dd-rnqpf
+2021-10-24 14:47:43   INFO :: root :: main.main :: Starting app
+2021-10-24 14:50:01   INFO :: aiohttp.access :: web_log.log :: 10.244.1.1 [24/Oct/2021:14:50:01 +0000] "GET / HTTP/1.1" 200 206 "-" "curl/7.64.1"
+2021-10-24 14:50:08   INFO :: aiohttp.access :: web_log.log :: 10.244.1.1 [24/Oct/2021:14:50:08 +0000] "GET / HTTP/1.1" 200 206 "-" "curl/7.64.1"
+2021-10-24 14:50:09   INFO :: aiohttp.access :: web_log.log :: 10.244.1.1 [24/Oct/2021:14:50:09 +0000] "GET / HTTP/1.1" 200 206 "-" "curl/7.64.1"
+2021-10-24 14:50:10   INFO :: aiohttp.access :: web_log.log :: 10.244.1.1 [24/Oct/2021:14:50:10 +0000] "GET / HTTP/1.1" 200 206 "-" "curl/7.64.1"
+2021-10-24 14:50:11   INFO :: aiohttp.access :: web_log.log :: 10.244.1.1 [24/Oct/2021:14:50:11 +0000] "GET / HTTP/1.1" 200 206 "-" "curl/7.64.1"
+2021-10-24 14:50:12   INFO :: aiohttp.access :: web_log.log :: 10.244.1.1 [24/Oct/2021:14:50:12 +0000] "GET / HTTP/1.1" 200 206 "-" "curl/7.64.1"
+2021-10-24 14:50:13   INFO :: aiohttp.access :: web_log.log :: 10.244.1.1 [24/Oct/2021:14:50:13 +0000] "GET / HTTP/1.1" 200 206 "-" "curl/7.64.1"
+2021-10-24 14:50:14   INFO :: aiohttp.access :: web_log.log :: 10.244.1.1 [24/Oct/2021:14:50:14 +0000] "GET / HTTP/1.1" 200 206 "-" "curl/7.64.1"
+2021-10-24 14:50:14   INFO :: aiohttp.access :: web_log.log :: 10.244.1.1 [24/Oct/2021:14:50:14 +0000] "GET / HTTP/1.1" 200 206 "-" "curl/7.64.1"
+2021-10-24 14:50:15   INFO :: aiohttp.access :: web_log.log :: 10.244.1.1 [24/Oct/2021:14:50:15 +0000] "GET / HTTP/1.1" 200 206 "-" "curl/7.64.1"
+2021-10-24 14:51:51   INFO :: aiohttp.access :: web_log.log :: 192.168.99.100 [24/Oct/2021:14:51:51 +0000] "GET / HTTP/1.1" 200 206 "-" "curl/7.64.1"
+2021-10-24 14:51:52   INFO :: aiohttp.access :: web_log.log :: 192.168.99.100 [24/Oct/2021:14:51:52 +0000] "GET / HTTP/1.1" 200 206 "-" "curl/7.64.1"
+2021-10-24 14:51:53   INFO :: aiohttp.access :: web_log.log :: 192.168.99.100 [24/Oct/2021:14:51:53 +0000] "GET / HTTP/1.1" 200 206 "-" "curl/7.64.1"
+2021-10-24 14:51:54   INFO :: aiohttp.access :: web_log.log :: 192.168.99.100 [24/Oct/2021:14:51:54 +0000] "GET / HTTP/1.1" 200 206 "-" "curl/7.64.1"
